@@ -106,7 +106,7 @@ a:hover {
     margin-top: 20px;
 }
 
-/* NEW: Specific styling for WhatsApp button on product detail page */
+/* Specific styling for WhatsApp button on product detail page */
 .whatsapp-product-btn {
     background-color: #25D366;
     color: white;
@@ -123,7 +123,6 @@ a:hover {
     margin-left: auto; /* Pusatkan tombol jika lebarnya kurang dari 100% */
     margin-right: auto; /* Pusatkan tombol jika lebarnya kurang dari 100% */
     box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); /* Tambah bayangan */
-    /* Ensure text within the button wraps if needed on small screens */
     white-space: nowrap; /* Prevent text wrapping by default */
     overflow: hidden; /* Hide overflow */
     text-overflow: ellipsis; /* Add ellipsis if text is too long */
@@ -138,7 +137,7 @@ a:hover {
 
 /* Header/Hero Section */
 .hero-section {
-    background: url('https://placehold.co/1600x800/F0E6E9/333?text=Beauty+Banner') no-repeat center center/cover;
+    background: url('/pelembabsatu.png') no-repeat center center/cover; /* Example: Use actual image */
     color: white;
     text-align: center;
     padding: 150px 20px;
@@ -275,12 +274,15 @@ a:hover {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
+    max-width: 100%; /* Pastikan gallery tidak melampaui lebar parent */
 }
 
-.product-gallery #main-image-serum { /* Sesuaikan ID jika ada produk lain */
-    width: 100%;
-    height: 500px; /* Tinggi tetap untuk gambar utama */
-    object-fit: contain; /* Agar gambar tidak terpotong */
+/* Apply to all main product images (serum, krim, toner, etc.) */
+.product-gallery img[id^="main-image-"] {
+    width: 100%; /* Pastikan lebar gambar 100% dari parent */
+    height: auto; /* Kunci: tinggi otomatis agar rasio aspek terjaga */
+    max-height: 500px; /* Tinggi maksimum di desktop */
+    object-fit: contain; /* Agar gambar tidak terpotong dan terlihat penuh */
     border-radius: 8px;
     margin-bottom: 15px;
 }
@@ -494,26 +496,29 @@ footer .social-links a:hover {
     .product-detail-content {
         flex-direction: column;
         align-items: center;
+        gap: 20px; /* Reduced gap for mobile */
     }
 
-    .product-gallery, .product-info {
-        flex: 1 1 100%;
-        max-width: 100%;
+    .product-gallery {
+        flex: 1 1 100%; /* Allow gallery to take full width of product-detail-content */
+        max-width: 100%; /* Ensure it doesn't exceed 100% */
+        padding: 15px; /* Reduced padding for mobile */
+    }
+
+    /* Adjust main image responsiveness for mobile */
+    .product-gallery img[id^="main-image-"] {
+        max-height: 300px; /* Adjust max height for smaller screens */
+        /* height: auto is already set in general rule, no need to override unless you want a different auto behavior */
+    }
+
+    .product-gallery .thumbnails img {
+        width: 60px; /* Smaller thumbnails */
+        height: 60px; /* Smaller thumbnails */
     }
 
     /* Reduce padding for product-info on smaller screens */
     .product-info {
         padding: 20px; /* Reduced from 30px */
-    }
-
-    /* Adjust product image height for mobile */
-    .product-gallery #main-image-serum {
-        height: 300px; /* Slightly smaller for better fit on mobile */
-    }
-
-    .product-gallery .thumbnails img {
-        width: 70px;
-        height: 70px;
     }
 
     /* WhatsApp product button on mobile */
@@ -528,10 +533,19 @@ footer .social-links a:hover {
 }
 
 @media (max-width: 480px) {
-    /* Further adjustments for very small screens if needed */
-    .product-gallery #main-image-serum {
-        height: 250px;
+    .product-gallery {
+        padding: 10px; /* Even smaller padding for very small screens */
     }
+
+    .product-gallery img[id^="main-image-"] {
+        max-height: 250px; /* Further adjust max height for very small screens */
+    }
+
+    .product-gallery .thumbnails img {
+        width: 50px; /* Even smaller thumbnails */
+        height: 50px; /* Even smaller thumbnails */
+    }
+
     /* Reduce padding for product-info even more on very small screens */
     .product-info {
         padding: 15px; /* Even smaller padding */
